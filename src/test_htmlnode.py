@@ -3,20 +3,17 @@ import unittest
 from htmlnode import HTMLNode
 
 class TestHTMLNode(unittest.TestCase):
-    def test_eq(self):
+    def test_one_prop(self):
+        node = HTMLNode('p', 'some value', None, {'href': 'https://wwww.boot.dev'})
+        self.assertEqual(node.props_to_html(), ' href="https://wwww.boot.dev"') 
+
+    def test_no_props(self):
         node = HTMLNode()
-        node2 = HTMLNode()
-        self.assertEqual(node, node2)
+        self.assertEqual(node.props_to_html(), '')
 
-    def test_tag(self):
-        node = HTMLNode("p")
-        node2 = HTMLNode("p")
-        self.assertEqual(node, node2)
-
-    def test_value(self):
-        node = HTMLNode('h1', 'some value')
-        node2 = HTMLNode('h1', 'some value')
-        self.assertEqual(node, node2)
+    def test_mult_props(self):
+        node = HTMLNode(None, None, None, {'href': 'https://wwww.boot.dev', 'target': '_blank'})
+        self.assertEqual(node.props_to_html(), ' href="https://wwww.boot.dev" target="_blank"')
 
 if __name__ == "__main__":
     unittest.main()
